@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 class CategoryController extends Controller
 {
-    public function index()
+   public function index()
     {
         $categories = Category::all();
         if($categories->count() > 0)
