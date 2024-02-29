@@ -38,7 +38,7 @@ use App\Models\User;
  *     )
  * ),
  * @OA\Put(
- *     path="/api/users/{id}",
+ *     path="/api/users/{id}/edit",
  *     summary="Editar Usuário",
  *     description="Endpoint para editar um usuário existente.",
  *     tags={"Users"},

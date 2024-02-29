@@ -5,6 +5,122 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/categories/{user_id}": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Listar categorias",
+                "description": "Listar todas as categorias de um usuário",
+                "operationId": "722185be9ae5a3dfbd2a26cbb207091b",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "ID do usuário",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de categorias do usuário"
+                    },
+                    "404": {
+                        "description": "Nenhuma categoria encontrada para o usuário"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Criar categoria",
+                "description": "Criar uma nova categoria para o usuário",
+                "operationId": "580461dce4d15406e77ad6e2c4f408b9",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "ID do usuário",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Nova Categoria"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Categoria cadastrada com sucesso"
+                    },
+                    "422": {
+                        "description": "Erro de validação dos dados"
+                    },
+                    "409": {
+                        "description": "Categoria já cadastrada"
+                    },
+                    "500": {
+                        "description": "Erro interno do servidor"
+                    }
+                }
+            }
+        },
+        "/api/categories/{user_id}/delete/{category_id}": {
+            "delete": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Apagar categoria e suas transações associadas",
+                "description": "Apaga uma categoria e todas as transações associadas a ela.",
+                "operationId": "2b8fdf19edab8558a02d19b74dedb4c5",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "ID do usuário",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "category_id",
+                        "in": "path",
+                        "description": "ID da categoria",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Categoria e transações associadas deletadas com sucesso"
+                    },
+                    "404": {
+                        "description": "Categoria não encontrada"
+                    }
+                }
+            }
+        },
         "/api/users": {
             "get": {
                 "tags": [
@@ -79,14 +195,14 @@
                 }
             }
         },
-        "/api/users/{id}": {
+        "/api/users/{id}/edit": {
             "put": {
                 "tags": [
                     "Users"
                 ],
                 "summary": "Editar Usuário",
                 "description": "Endpoint para editar um usuário existente.",
-                "operationId": "34d25c8dc9f6fa955f35f2b20747b7ac",
+                "operationId": "b8036f23f8b59de6fe43998b325930ee",
                 "parameters": [
                     {
                         "name": "id",
@@ -147,6 +263,175 @@
                         "content": {
                             "application/json": {}
                         }
+                    }
+                }
+            }
+        },
+        "/api/transactions/{user_id}": {
+            "get": {
+                "tags": [
+                    "Transactions"
+                ],
+                "summary": "Listar transações de um usuário",
+                "description": "Listar todas as transações feitas por um usuário.",
+                "operationId": "e04cd602b5684128605ad80a1935f84b",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "ID do usuário",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de transações do usuário"
+                    },
+                    "404": {
+                        "description": "Nenhuma transação encontrada para o usuário"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Transactions"
+                ],
+                "summary": "Criar transação",
+                "description": "Criar uma nova transação para o usuário.",
+                "operationId": "d32ce615b35948ce7d42dfa17db1f1bf",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "ID do usuário",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "type": {
+                                        "type": "string",
+                                        "example": "Despesa"
+                                    },
+                                    "value": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 100.5
+                                    },
+                                    "category_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Transação criada com sucesso"
+                    },
+                    "422": {
+                        "description": "Erro de validação dos dados"
+                    },
+                    "500": {
+                        "description": "Erro interno do servidor"
+                    }
+                }
+            }
+        },
+        "/api/transactions": {
+            "get": {
+                "tags": [
+                    "Transactions"
+                ],
+                "summary": "Listar todas as transações de todos os usuários",
+                "description": "Listar todas as transações feitas por todos os usuários.",
+                "operationId": "9b5aba419772e977aaba996b5ba2ad67",
+                "responses": {
+                    "200": {
+                        "description": "Lista de todas as transações de todos os usuários"
+                    },
+                    "404": {
+                        "description": "Nenhuma transação encontrada"
+                    }
+                }
+            }
+        },
+        "/api/transactions/{user_id}/delete/{transaction_id}": {
+            "delete": {
+                "tags": [
+                    "Transactions"
+                ],
+                "summary": "Apagar transação",
+                "description": "Apagar uma transação do usuário.",
+                "operationId": "3537b36b9e2c7e1e3064393276e5a323",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "ID do usuário",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "transaction_id",
+                        "in": "path",
+                        "description": "ID da transação",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Transação apagada com sucesso"
+                    },
+                    "404": {
+                        "description": "Transação não encontrada"
+                    }
+                }
+            }
+        },
+        "/api/users/{id}/delete": {
+            "delete": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Apagar usuário",
+                "description": "Apagar um usuário pelo seu ID",
+                "operationId": "80d42eb320ae7317752d2784434df23b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do usuário a ser apagado",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuário deletado com sucesso"
+                    },
+                    "404": {
+                        "description": "Usuário não encontrado"
                     }
                 }
             }

@@ -144,19 +144,44 @@ class UserController extends Controller
         }
     }
 
-    public function destroy($id){
+        /**
+     * @OA\Delete(
+     *     path="/api/users/{id}/delete",
+     *     summary="Apagar usuário",
+     *     description="Apagar um usuário pelo seu ID",
+     *     tags={"Users"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID do usuário a ser apagado",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Usuário deletado com sucesso"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Usuário não encontrado"
+     *     )
+     * )
+     */
+    public function destroy($id) {
         $user = User::find($id);
-        if($user){
+        if ($user) {
             $user->delete();
             return response()->json([
-                'status'=> 200,
-                'message' => "Usuario deletado com sucesso"
-            ],200);
-        }else{
+                'status' => 200,
+                'message' => "Usuário deletado com sucesso"
+            ], 200);
+        } else {
             return response()->json([
-                'status'=> 404,
-                'message' => "Erro ao apagar usuario"
-            ],404);
+                'status' => 404,
+                'message' => "Usuário não encontrado"
+            ], 404);
         }
     }
 }
