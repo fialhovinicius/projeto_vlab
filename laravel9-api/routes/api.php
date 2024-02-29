@@ -4,11 +4,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\api\HomeController;
 use App\Http\Controllers\Api\TransactionController;
 
-//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    //return $request->user();
-//});
+
+    Route::get('/home', [HomeController::class,"index"]);
+    //Route::put('/home/{id}/edit', [HomeController::class,'edit']);
+    Route::put('/api/users/{id}', 'UserController@update');
 
 // Rotas para o administrador
 //Route::group(['prefix' => 'admin', 'middleware' => 'auth:api'], function () {
@@ -20,14 +22,14 @@ use App\Http\Controllers\Api\TransactionController;
     Route::delete('users/{id}/delete', [UserController::class,'destroy']);
 //});
 
-// Rotas para o usuário comum
+// Rotas para o usuário comum ( nao implementado )
 //Route::group(['prefix' => 'user', 'middleware' => 'auth:api'], function () {
-    Route::get('categories', [CategoryController::class,'index']);
-    Route::post('categories', [CategoryController::class,'store']);
-    Route::delete('categories/{id}/delete', [CategoryController::class,'destroy']);
+    Route::get('/categories/{user_id}', [CategoryController::class,'index']);
+    Route::post('/categories/{user_id}', [CategoryController::class,'store']);
+    Route::delete('/categories/{user_id}/delete/{category_id}', [CategoryController::class,'destroy']);
 
-    Route::get('transactions', [TransactionController::class,'index']);
-    Route::post('transactions', [TransactionController::class,'store']);
-    Route::get('transactions/{id}', [TransactionController::class,'show']);
-    Route::delete('transactions/{id}/delete', [TransactionController::class,'destroy']);
+    Route::get('/transactions/{user_id}', [TransactionController::class,'index']);
+    Route::post('/transactions/{user_id}', [TransactionController::class,'store']);
+    Route::get('transactions', [TransactionController::class, 'list']);
+    Route::delete('transactions/{user_id}/delete/{transaction_id}', [TransactionController::class,'destroy']);
 //});

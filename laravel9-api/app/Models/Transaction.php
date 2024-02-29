@@ -12,6 +12,8 @@ class Transaction extends Model
     protected $fillable = [
         'type',
         'value',
+        'user_id',
+        'category_id',
     ];
     public function user(){
         return $this->belongsTo('App\Models\User');

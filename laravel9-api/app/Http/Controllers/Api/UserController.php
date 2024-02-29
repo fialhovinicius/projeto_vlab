@@ -22,9 +22,9 @@ class UserController extends Controller
 
         }   else{
                 return response()->json([
-                    'status' => 404,
+                    'status' => 200,
                     'users' => 'Sem registro de usuarios',
-                ],404);
+                ],200);
 
             }
     }
@@ -56,9 +56,9 @@ class UserController extends Controller
     
                 if($users){
                     return response()->json([
-                        'status'=> 200,
+                        'status'=> 201,
                         'message' => "Usuario cadastrado com sucesso"
-                    ],200);
+                    ],201);
                 }else{
                     return response()->json([
                         'status'=> 500,
@@ -82,7 +82,7 @@ class UserController extends Controller
         }
         else{
             return response()->json([
-                'status'=> 404,
+                'status'=> 200,
                 'message' => "Usuario nao encontrado"
             ],404);
         }
@@ -98,9 +98,9 @@ class UserController extends Controller
         }
         else{
             return response()->json([
-                'status'=> 404,
+                'status'=> 200,
                 'message' => "Usuario nao encontrado"
-            ],404);
+            ],200);
         }
     }
 
@@ -132,9 +132,9 @@ class UserController extends Controller
                 ]);
 
                 return response()->json([
-                    'status'=> 200,
+                    'status'=> 204,
                     'message' => "Usuario atualizado com sucesso"
-                ],200);
+                ],204);
             }else{
                 return response()->json([
                     'status'=> 404,
