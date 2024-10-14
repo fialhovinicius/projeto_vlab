@@ -2,7 +2,7 @@ Script necessário para importação do banco de dados via migration: "php artis
 
 Comando necessário para visualização dos endpoints via Swagger: "php artisan l5-swagger:generate"
 
-URL para acesso dos endpoints após o servidor local iniciar  '.../api/documantation'
+URL para acesso dos endpoints após o servidor local iniciar  '.../api/documentation'
 
 
 Em anexo está o PDF para a visualização do modelo de entidade relacionamento
